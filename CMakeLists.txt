@@ -4,21 +4,18 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/ProjectVersion.cmake)
 
 project(
-  my_project
+  popup
   LANGUAGES C CXX
   VERSION ${PROJECT_VERSION}
-  DESCRIPTION "My project")
+  DESCRIPTION "Popup")
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/ProjectSettings.cmake)
 
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(spdlog REQUIRED)
-find_package(Catch2 REQUIRED)
-find_package(nlohmann_json REQUIRED)
 find_package(CLI11 REQUIRED)
 
-add_subdirectory(external)
 add_subdirectory(src)
-add_subdirectory(tests)
 
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E create_symlink

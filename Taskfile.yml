@@ -51,11 +51,6 @@ tasks:
       - build/Debug/compile_commands.json
       - build/compile_commands.json
 
-  pack:
-    cmds:
-      - task: build
-      - cmd: cd build/Release && cpack -B install -C Release
-
   config:
     cmds:
       - task: config_linux
@@ -74,30 +69,23 @@ tasks:
       - task: config_debug
       - cmd: cmake --build build/Debug
 
-  test:
-    cmds:
-      - task: build
-      - cmd: ctest --test-dir build/Release/tests --output-on-failure
-
-  test_debug:
-    cmds:
-      - task: build_debug
-      - cmd: ctest --test-dir build/Debug/tests --output-on-failure
-
-  compile_config:
-    cmds:
-      - cmd: cue vet data/config/schema.cue data/config/config.cue
-      - cmd: rm -f data/config/config.json
-      - cmd: cue export data/config/config.cue -o data/config/config.json
-
   run:
     cmds:
       - task: build
-      - task: compile_config
-      - cmd: build/Release/src/cpp/my_project --config data/config/config.json
+      - cmd: build/Release/src/popup "test message"
 
   run_debug:
     cmds:
       - task: build_debug
-      - task: compile_config
-      - cmd: build/Debug/src/cpp/my_project --config data/config/config.json --debug
+      - cmd: build/Debug/src/popup "test message"
+
+  install:
+    cmds:
+      - task: build
+      - cmake --install build/Release --prefix install
+
+  nix_install:
+    cmds:
+      - cmake -S . -B build/Release -DCMAKE_BUILD_TYPE=Release
+      - cmake --build build/Release
+      - cmake --install build/Release --prefix install

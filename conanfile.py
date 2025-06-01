@@ -9,9 +9,7 @@ from conan.tools.cmake import CMake, CMakeToolchain
 class Project(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     requires = [
-        "catch2/3.4.0",
         "spdlog/1.12.0",
-        "nlohmann_json/3.11.3",
         "cli11/2.3.2",
     ]
     generators = "CMakeDeps"
