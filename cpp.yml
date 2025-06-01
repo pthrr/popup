@@ -1,0 +1,17 @@
+session_name: cpp
+start_directory: .
+windows:
+  - window_name: dev
+    layout: main-horizontal
+    options:
+      main-pane-height: 75%
+    panes:
+      - shell_command:
+          - nvim
+        focus: True
+      - shell_command:
+          -
+        width: 50%
+      - shell_command:
+          -
+        width: 50%
